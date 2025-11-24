@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "b1e93890-e62f-4888-8888-abcdef123456",
+    "name": "Secure API Lab Tests",
+    "description": "Колекція тестів для Лабораторної роботи №3 (REST API Security)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET /documents (No Auth)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/documents",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        },
+        "description": "Спроба доступу без аутентифікації. Очікується 401 Unauthorized."
+      },
+      "response": []
+    },
+    {
+      "name": "2. GET /employees (User Role -> Forbidden)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "user1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/employees",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "employees"
+          ]
+        },
+        "description": "Спроба доступу до адмін-ресурсу з роллю 'user'. Очікується 403 Forbidden."
+      },
+      "response": []
+    },
+    {
+      "name": "3. GET /documents (User Role -> Success)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "user1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/documents",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        },
+        "description": "Успішне отримання даних з роллю 'user'. Очікується 200 OK."
+      },
+      "response": []
+    },
+    {
+      "name": "4. GET /employees (Admin Role -> Success)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "admin1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/employees",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "employees"
+          ]
+        },
+        "description": "Успішне отримання даних з роллю 'admin'. Очікується 200 OK."
+      },
+      "response": []
+    },
+    {
+      "name": "5. POST /documents (Create Success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "user1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Test Doc\",\n  \"content\": \"This is a content of test doc\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/documents",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        },
+        "description": "Успішне створення ресурсу. Очікується 201 Created."
+      },
+      "response": []
+    },
+    {
+      "name": "6. POST /documents (Bad Request)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "user1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"content\": \"Missing title field\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/documents",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        },
+        "description": "Помилка валідації (відсутнє поле title). Очікується 400 Bad Request."
+      },
+      "response": []
+    },
+    {
+      "name": "7. DELETE /documents/1 (Admin Delete)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "admin1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/documents/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents",
+            "1"
+          ]
+        },
+        "description": "Успішне видалення. Очікується 204 No Content."
+      },
+      "response": []
+    },
+    {
+      "name": "8. GET /non-existent (Not Found)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Login",
+            "value": "admin1",
+            "type": "text"
+          },
+          {
+            "key": "X-Password",
+            "value": "password123",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/non-existent",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "non-existent"
+          ]
+        },
+        "description": "Звернення до неіснуючого маршруту. Очікується 404 Not Found."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

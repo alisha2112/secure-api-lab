@@ -1,0 +1,18 @@
+{
+  "id": "a3df1c58-9c26-4452-a61e-0f0d2e865ee1",
+  "name": "Secure API Lab Environment",
+  "values": [
+    {
+      "key": "host",
+      "value": "http://localhost:3000",
+      "enabled": true
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{host}}",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_using": "Postman/7.26.0"
+}
